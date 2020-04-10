@@ -1,14 +1,9 @@
-let changeColor = document.getElementById("changeColor");
+let saveButton = document.querySelectorAll(".message__save");
 
-chrome.storage.sync.get("color", function (data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute("value", data.color);
-});
-changeColor.onclick = function (element) {
-  let color = element.target.value;
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.executeScript(tabs[0].id, {
-      code: 'document.body.style.backgroundColor = "' + color + '";',
-    });
+saveButton.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    var messageToSave = event.currentTarget.parentNode.querySelector(
+      ".message__text"
+    ).innerHTML;
   });
-};
+});
