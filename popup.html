@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style></style>
   </head>
   <body>
-    <button id="changeColor"></button>
+    <div class="chatbox--container">
+      <div class="chatbox__header">
+        <h1>StreamChats Logo</h1>
+      </div>
+      <div class="chatbox__main">
+        <div class="main__messages">
+          <div class="messages__message self">
+            <span class="message__name">Test Name: </span>
+            <span class="message__text">This is a test message from you</span>
+            <span class="message__save">Save Message</span>
+          </div>
+          <div class="messages__message other">
+            <span class="message__name">Test Name: </span>
+            <span class="message__text">This is a test message from else</span>
+            <span class="message__save">Save Message</span>
+          </div>
+        </div>
+        <form class="messages_form">
+          <input name="message" id="message" type="text" />
+          <button class="message__send" type="submit">Send</button>
+        </form>
+      </div>
+      <div class="chatbox__footer">
+        <p><sup>&copy;</sup> 2020 StreamChats</p>
+      </div>
+    </div>
+
     <script src="popup.js"></script>
   </body>
 </html>

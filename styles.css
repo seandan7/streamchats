@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+.chatbox--container {
+  width: 400px;
+}
+#message {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: none;
+  border: 1px solid lightgray;
+  width: 100%;
+  padding: 5px 8px;
+  max-width: 100%;
+  color: #777;
+}
+#message:focus {
+  outline: none;
+}
+.messages_form {
+  position: relative;
+  margin-top: 20px;
+}
+.main__messages {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+  border: 1px solid lightgray;
+  padding: 10px;
+}
+.message__send {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  background: #03a9f4;
+  border: none;
+  box-shadow: none;
+  height: 100%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 5px 15px;
+  color: white;
+}
+
+.messages__message {
+  margin-top: 5px;
+  padding: 7px 0;
+  position: relative;
+}
+.message__name {
+  font-weight: bold;
+}
+.messages__message.self .message__name {
+  color: darkred;
+}
+.messages__message.other .message__name {
+  color: darkblue;
+}
+.messages__message:hover .message__save {
+  display: flex;
+}
+.message__save {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
