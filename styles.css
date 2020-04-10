@@ -28,6 +28,13 @@
   border: 1px solid lightgray;
   padding: 10px;
 }
+
+.message__text.saved:after {
+  content: "*saved";
+  font-weight: bold;
+  color: green;
+}
+
 .message__send {
   position: absolute;
   top: 0;
