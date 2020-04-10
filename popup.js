@@ -9,12 +9,23 @@ fetch("http://localhost:4000/api/savedMessages")
 
 function showResponseAsMessages(arr) {
   arr.forEach((item) => {
-    let newMessage = `<div class="messages__message self">
-      <span class="message__name">${item.name}: </span>
-      <span class="message__text saved">${item.message}</span>
-      <span class="message__save">Save Message</span>
-    </div>`;
-    document.querySelector(".main__messages").append(newMessage);
+    var node = document.createElement("div");
+    node.classList += "messages__message";
+    //  TODO: ADD IS SELF MESSAGE TO DB,IF SELF PARAMETER, ADD SELF CLASS
+    var subNodeName = document.createElement("div");
+    subNodeName.classList += "message__name";
+    var subNodeText = document.createTextNode(item.name);
+    subNodeName.appendChild(subNodeText);
+
+    var subNodeMessage = document.createElement("div");
+    subNodeMessage.classList += "message__text saved";
+    var subNodeMessageText = document.createTextNode(item.message);
+    subNodeMessage.appendChild(subNodeMessageText);
+    // TODO: ADD UNSAVE BUTTON
+    node.appendChild(subNodeName);
+    node.appendChild(subNodeMessage);
+
+    document.querySelector(".main__messages").append(node);
   });
 }
 /** Save Message Details to MySQL upon Save Button Click */
