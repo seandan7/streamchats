@@ -12,12 +12,12 @@ function showResponseAsMessages(arr) {
     var node = document.createElement("div");
     node.classList += "messages__message";
     //  TODO: ADD IS SELF MESSAGE TO DB,IF SELF PARAMETER, ADD SELF CLASS
-    var subNodeName = document.createElement("div");
+    var subNodeName = document.createElement("span");
     subNodeName.classList += "message__name";
     var subNodeText = document.createTextNode(item.name);
     subNodeName.appendChild(subNodeText);
 
-    var subNodeMessage = document.createElement("div");
+    var subNodeMessage = document.createElement("span");
     subNodeMessage.classList += "message__text saved";
     var subNodeMessageText = document.createTextNode(item.message);
     subNodeMessage.appendChild(subNodeMessageText);
