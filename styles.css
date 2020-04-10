@@ -28,7 +28,9 @@
   border: 1px solid lightgray;
   padding: 10px;
 }
-
+.message__text.saved {
+  background: lightgray;
+}
 .message__text.saved:after {
   content: "*saved";
   font-weight: bold;
