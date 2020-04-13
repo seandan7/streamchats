@@ -7,3 +7,17 @@
 3. Attach notes to elements on the webpage for even greater detailed edits.
 
 # Streamline your workflow today
+
+1. DB with list of company and way to give access token to all company members
+
+2. For each company -- DB FOR EACH COMPANY
+
+   - users table
+     - those who have access token
+   - messages table
+     - Message
+     - Sender
+     - Page URL
+
+3. New view for signing up on extension download OR on website
+   sign up, get access token
