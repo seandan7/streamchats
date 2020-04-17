@@ -64,6 +64,9 @@ sendButton.addEventListener("click", (event) => {
   fetch("http://localhost:4000/api/newTempMessage", {
     method: "POST",
     body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
   }).then((response) => {
     console.log(response);
   });
