@@ -78,4 +78,16 @@ sendButton.addEventListener("click", (event) => {
   fullMessage.append(messageSender);
   fullMessage.append(messageBody);
   document.getElementsByClassName("main__messages")[0].append(fullMessage);
+
+  // Temp Save TO APi for others to see
+  var data = {
+    name: messageToSaveSender,
+    message: messageToSave,
+  };
+  fetch("http://localhost:4000/api/newTempMessage", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then((response) => {
+    console.log(response);
+  });
 });
