@@ -56,3 +56,26 @@ saveButton.forEach((item) => {
       " saved";
   });
 });
+
+/* Get message on local to share with others -- todo:how */
+let sendButton = document.querySelector(".message__send");
+
+sendButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  var messageToSave = document.getElementById("message").value;
+  var messageToSaveSender = "Self";
+  var fullMessage = document.createElement("div");
+  fullMessage.classList = "messages__message";
+
+  var messageSender = document.createElement("span");
+  messageSender.classList = "message__name";
+  messageSender.innerText = messageToSaveSender + ": ";
+
+  var messageBody = document.createElement("span");
+  messageBody.classList = "message__text";
+  messageBody.innerText = messageToSave;
+
+  fullMessage.append(messageSender);
+  fullMessage.append(messageBody);
+  document.getElementsByClassName("main__messages")[0].append(fullMessage);
+});
