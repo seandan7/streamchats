@@ -28,38 +28,10 @@ function showResponseAsMessages(arr) {
     document.querySelector(".main__messages").append(node);
   });
 }
-/** Save Message Details to MySQL upon Save Button Click */
-let saveButton = document.querySelectorAll(".message__save");
 
-saveButton.forEach((item) => {
-  item.addEventListener("click", (event) => {
-    var messageToSave = event.currentTarget.parentNode.querySelector(
-      ".message__text"
-    ).innerHTML;
-    var messageToSaveSender = event.currentTarget.parentNode.querySelector(
-      ".message__name"
-    ).innerHTML;
-    var data = {
-      name: messageToSaveSender,
-      message: messageToSave,
-    };
-    fetch("http://localhost:4000/api/newMessage", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      console.log(response);
-    });
-    event.currentTarget.parentNode.querySelector(".message__text").classList +=
-      " saved";
-  });
-});
-
+allowSaved();
 /* Get message on local to share with others -- todo:how */
 let sendButton = document.querySelector(".message__send");
-
 sendButton.addEventListener("click", (event) => {
   event.preventDefault();
   var messageToSave = document.getElementById("message").value;
@@ -75,13 +47,18 @@ sendButton.addEventListener("click", (event) => {
   messageBody.classList = "message__text";
   messageBody.innerText = messageToSave;
 
+  var saveButton = document.createElement("button");
+  saveButton.classList = "message__save";
+  saveButton.innerText = "Save";
+
   fullMessage.append(messageSender);
   fullMessage.append(messageBody);
+  fullMessage.append(saveButton);
   document.getElementsByClassName("main__messages")[0].append(fullMessage);
 
   // Temp Save TO APi for others to see
   var data = {
-    name: messageToSaveSender,
+    name: messageToSaveSender, // TODO: this should be user email
     message: messageToSave,
   };
   fetch("http://localhost:4000/api/newTempMessage", {
@@ -90,4 +67,38 @@ sendButton.addEventListener("click", (event) => {
   }).then((response) => {
     console.log(response);
   });
+  allowSaved();
 });
+
+// Save Event Function
+function allowSaved() {
+  /** Save Message Details to MySQL upon Save Button Click */
+  let saveButton = document.querySelectorAll(".message__save");
+
+  saveButton.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      var messageToSave = event.currentTarget.parentNode.querySelector(
+        ".message__text"
+      ).innerHTML;
+      var messageToSaveSender = event.currentTarget.parentNode.querySelector(
+        ".message__name"
+      ).innerHTML;
+      var data = {
+        name: messageToSaveSender,
+        message: messageToSave,
+      };
+      fetch("http://localhost:4000/api/newMessage", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log(response);
+      });
+      event.currentTarget.parentNode.querySelector(
+        ".message__text"
+      ).classList += " saved";
+    });
+  });
+}
