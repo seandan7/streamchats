@@ -15,7 +15,7 @@ $(document).ready(function () {
   function showResponseAsMessages(arr) {
     arr.forEach((item) => {
       var node = document.createElement("div");
-      node.classList += "messages__message";
+      node.classList += "messages__message saved";
       //  TODO: ADD IS SELF MESSAGE TO DB,IF SELF PARAMETER, ADD SELF CLASS
       var subNodeName = document.createElement("span");
       subNodeName.classList += "message__name";
@@ -23,7 +23,7 @@ $(document).ready(function () {
       subNodeName.appendChild(subNodeText);
 
       var subNodeMessage = document.createElement("span");
-      subNodeMessage.classList += "message__text saved";
+      subNodeMessage.classList += "message__text";
       var subNodeMessageText = document.createTextNode(item.message);
       subNodeMessage.appendChild(subNodeMessageText);
       // TODO: ADD UNSAVE BUTTON
