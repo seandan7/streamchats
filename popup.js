@@ -103,10 +103,23 @@ $(document).ready(function () {
         }).then((response) => {
           console.log(response);
         });
-        event.currentTarget.parentNode.querySelector(
-          ".message__text"
-        ).classList += " saved";
+        event.currentTarget.parentNode.classList += " saved";
       });
     });
   }
+
+  //unsave Message
+  $(".saved").click(function (e) {
+    var messageToRemoveBody = e.currentTarget.parentNode.find(".message__text");
+    fetch("http://localhost:4000/api/unsaveMessage", {
+      method: "POST",
+      body: JSON.stringify(messageToRemoveBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+    $(this).removeClass("saved");
+  });
 });
