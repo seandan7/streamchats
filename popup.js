@@ -32,6 +32,7 @@ $(document).ready(function () {
 
       document.querySelector(".main__messages").append(node);
     });
+    allowUnsave();
   }
 
   allowSaved();
@@ -39,42 +40,44 @@ $(document).ready(function () {
   let sendButton = document.querySelector(".message__send");
   sendButton.addEventListener("click", (event) => {
     event.preventDefault();
-    var messageToSend = document.getElementById("message").value;
-    var messageToSendSender = "Self";
-    var fullMessage = document.createElement("div");
-    fullMessage.classList = "messages__message";
+    if (!sendButton.classList.includes("saved")) {
+      var messageToSend = document.getElementById("message").value;
+      var messageToSendSender = "Self";
+      var fullMessage = document.createElement("div");
+      fullMessage.classList = "messages__message";
 
-    var messageSender = document.createElement("span");
-    messageSender.classList = "message__name";
-    messageSender.innerText = messageToSendSender + ": ";
+      var messageSender = document.createElement("span");
+      messageSender.classList = "message__name";
+      messageSender.innerText = messageToSendSender + ": ";
 
-    var messageBody = document.createElement("span");
-    messageBody.classList = "message__text";
-    messageBody.innerText = messageToSend;
+      var messageBody = document.createElement("span");
+      messageBody.classList = "message__text";
+      messageBody.innerText = messageToSend;
 
-    var saveButton = document.createElement("button");
-    saveButton.classList = "message__save";
-    saveButton.innerText = "Save";
+      var saveButton = document.createElement("button");
+      saveButton.classList = "message__save";
+      saveButton.innerText = "Save";
 
-    fullMessage.append(messageSender);
-    fullMessage.append(messageBody);
-    fullMessage.append(saveButton);
-    document.getElementsByClassName("main__messages")[0].append(fullMessage);
+      fullMessage.append(messageSender);
+      fullMessage.append(messageBody);
+      fullMessage.append(saveButton);
+      document.getElementsByClassName("main__messages")[0].append(fullMessage);
 
-    // Temp Save TO APi for others to see
-    var data = {
-      name: messageToSendSender, // TODO: this should be user email
-      message: messageToSend,
-    };
-    socket.emit("sent-message", data);
-    fetch("http://localhost:4000/api/newTempMessage", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    allowSaved();
+      // Temp Save TO APi for others to see
+      var data = {
+        name: messageToSendSender, // TODO: this should be user email
+        message: messageToSend,
+      };
+      socket.emit("sent-message", data);
+      fetch("http://localhost:4000/api/newTempMessage", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      allowSaved();
+    }
   });
 
   // Save Event Function
@@ -108,20 +111,24 @@ $(document).ready(function () {
     });
   }
 
-  //unsave Message
-  $(".saved").click(function (e) {
-    e.stopPropogation();
-    console.log("Clicked saved message");
-    var messageToRemoveBody = e.currentTarget.parentNode.find(".message__text");
-    fetch("http://localhost:4000/api/unsaveMessage", {
-      method: "POST",
-      body: JSON.stringify(messageToRemoveBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      console.log(response);
+  function allowUnsave() {
+    $(".saved").click(function (e) {
+      console.log("Clicked saved message");
+      var messageToRemoveBody = e.currentTarget.querySelector(".message__text")
+        .innerHTML;
+      var data = {
+        messageToRemoveBody,
+      };
+      fetch("http://localhost:4000/api/unsaveMessage", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log(response);
+      });
+      $(this).removeClass("saved");
     });
-    $(this).removeClass("saved");
-  });
+  }
 });
