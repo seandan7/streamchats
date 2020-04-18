@@ -110,6 +110,8 @@ $(document).ready(function () {
 
   //unsave Message
   $(".saved").click(function (e) {
+    e.stopPropogation();
+    console.log("Clicked saved message");
     var messageToRemoveBody = e.currentTarget.parentNode.find(".message__text");
     fetch("http://localhost:4000/api/unsaveMessage", {
       method: "POST",
