@@ -40,44 +40,43 @@ $(document).ready(function () {
   let sendButton = document.querySelector(".message__send");
   sendButton.addEventListener("click", (event) => {
     event.preventDefault();
-    if (!sendButton.classList.includes("saved")) {
-      var messageToSend = document.getElementById("message").value;
-      var messageToSendSender = "Self";
-      var fullMessage = document.createElement("div");
-      fullMessage.classList = "messages__message";
+    console.log(sendButton.classList);
+    var messageToSend = document.getElementById("message").value;
+    var messageToSendSender = "Self";
+    var fullMessage = document.createElement("div");
+    fullMessage.classList = "messages__message";
 
-      var messageSender = document.createElement("span");
-      messageSender.classList = "message__name";
-      messageSender.innerText = messageToSendSender + ": ";
+    var messageSender = document.createElement("span");
+    messageSender.classList = "message__name";
+    messageSender.innerText = messageToSendSender + ": ";
 
-      var messageBody = document.createElement("span");
-      messageBody.classList = "message__text";
-      messageBody.innerText = messageToSend;
+    var messageBody = document.createElement("span");
+    messageBody.classList = "message__text";
+    messageBody.innerText = messageToSend;
 
-      var saveButton = document.createElement("button");
-      saveButton.classList = "message__save";
-      saveButton.innerText = "Save";
+    var saveButton = document.createElement("button");
+    saveButton.classList = "message__save";
+    saveButton.innerText = "Save";
 
-      fullMessage.append(messageSender);
-      fullMessage.append(messageBody);
-      fullMessage.append(saveButton);
-      document.getElementsByClassName("main__messages")[0].append(fullMessage);
+    fullMessage.append(messageSender);
+    fullMessage.append(messageBody);
+    fullMessage.append(saveButton);
+    document.getElementsByClassName("main__messages")[0].append(fullMessage);
 
-      // Temp Save TO APi for others to see
-      var data = {
-        name: messageToSendSender, // TODO: this should be user email
-        message: messageToSend,
-      };
-      socket.emit("sent-message", data);
-      fetch("http://localhost:4000/api/newTempMessage", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      allowSaved();
-    }
+    // Temp Save TO APi for others to see
+    var data = {
+      name: messageToSendSender, // TODO: this should be user email
+      message: messageToSend,
+    };
+    socket.emit("sent-message", data);
+    fetch("http://localhost:4000/api/newTempMessage", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    allowSaved();
   });
 
   // Save Event Function
