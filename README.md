@@ -10,6 +10,8 @@ Google Chrome Extension for chatting about your current webpage
 
 # Streamline your workflow today
 
+Uses: https://github.com/seandan7/StreamChats-API/
+
 1. DB with list of company and way to give access token to all company members
 
 2. For each company -- DB FOR EACH COMPANY
